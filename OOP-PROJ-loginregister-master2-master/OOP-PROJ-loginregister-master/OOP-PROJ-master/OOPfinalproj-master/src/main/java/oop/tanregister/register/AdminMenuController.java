@@ -34,30 +34,53 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class AdminMenuController implements Initializable {
 
-    @FXML private TableView<Product> productTable;
-    @FXML private TableColumn<Product, String> productID;
-    @FXML private TableColumn<Product, String> productName;
-    @FXML private TableColumn<Product, String> productType;
-    @FXML private TableColumn<Product, Integer> ProductStock;
-    @FXML private TableColumn<Product, Double> ProductPrice;
-    @FXML private TableColumn<Product, String> ProductStatus;  // Fixed: Changed from Integer to String to match the data type
-    @FXML private TableColumn<Product, Date> ProductDate;
+    @FXML
+    private TableView<Product> productTable;
+    @FXML
+    private TableColumn<Product, String> productID;
+    @FXML
+    private TableColumn<Product, String> productName;
+    @FXML
+    private TableColumn<Product, String> productType;
+    @FXML
+    private TableColumn<Product, Integer> ProductStock;
+    @FXML
+    private TableColumn<Product, Double> ProductPrice;
+    @FXML
+    private TableColumn<Product, String> ProductStatus;  // Fixed: Changed from Integer to String to match the data type
+    @FXML
+    private TableColumn<Product, Date> ProductDate;
 
-    @FXML private TextField IDField;
-    @FXML private TextField ProductNameField;
-    @FXML private ComboBox<String> TypeField;
-    @FXML private TextField StockField;
-    @FXML private TextField Price;
-    @FXML private ComboBox<String> StatusField;
-    @FXML private Button mainButton;
-    @FXML private Button inventoryButton;
-    @FXML private Button customerButton;
-    @FXML private Button UpdateButton;
-    @FXML private Button ClearButton;
-    @FXML private Button DeleteButton;
-    @FXML private Button importButton;
-    @FXML private Button SignOut;
-    @FXML private ImageView productImageView;
+    @FXML
+    private TextField IDField;
+    @FXML
+    private TextField ProductNameField;
+    @FXML
+    private ComboBox<String> TypeField;
+    @FXML
+    private TextField StockField;
+    @FXML
+    private TextField Price;
+    @FXML
+    private ComboBox<String> StatusField;
+    @FXML
+    private Button mainButton;
+    @FXML
+    private Button inventoryButton;
+    @FXML
+    private Button customerButton;
+    @FXML
+    private Button UpdateButton;
+    @FXML
+    private Button ClearButton;
+    @FXML
+    private Button DeleteButton;
+    @FXML
+    private Button importButton;
+    @FXML
+    private Button SignOut;
+    @FXML
+    private ImageView productImageView;
 
     private byte[] currentImageBytes;
     private Stage stage;
@@ -337,19 +360,19 @@ public class AdminMenuController implements Initializable {
         }
     }
 
-    public void switchMenuView(MouseEvent event) throws IOException {
+    @FXML
+    private void switchMenuView(MouseEvent event) {
         try {
-            Stage currentStage = (Stage) mainButton.getScene().getWindow();
-            currentStage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/admainview.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister.register/admainview.fxml"));
             Parent root = loader.load();
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new  Scene(root);
-            stage.setScene(scene);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 1100, 600));
             stage.show();
 
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Could not return to Register page:\n" + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not return to Main Menu:\n" + e.getMessage());
+            e.printStackTrace();
         }
     }
 

@@ -7,7 +7,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -17,28 +20,34 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.Binary;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Date;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import static com.mongodb.client.model.Filters.eq;
 
+import static com.mongodb.client.model.Filters.eq;
 
 public class CustomerController implements Initializable {
 
-    @FXML private Button AboutUs, CheckOut, Clear, Contact, Logout, Products, Receipt, Remove;
-    @FXML private RadioButton COD, OnlPay;
+    // Buttons present in your FXML (make sure FXML has matching fx:id)
+    @FXML private Button AboutUs;
+    @FXML private Button CheckOut;
+    @FXML private Button Clear;
+    @FXML private Button Contact;
+    @FXML private Button Logout;
+    @FXML private Button Products;
+    @FXML private Button Receipt;
+    @FXML private Button Remove;
 
-    @FXML private AnchorPane Checkout, ProductMenu;
+    @FXML private RadioButton COD;
+    @FXML private RadioButton OnlPay;
+
+    @FXML private AnchorPane Checkout;
+    @FXML private AnchorPane ProductMenu;
     @FXML private GridPane ProductPane;
 
     @FXML private TableView<ProductTableData> ProductTable;
@@ -48,40 +57,46 @@ public class CustomerController implements Initializable {
 
     @FXML private TextField Total;
 
-
     private ObservableList<ProductTableData> cartList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        ProductTable.setItems(cartList);
+        // only wire table if columns exist (prevent NPE)
+        if (colName != null) colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        if (colPrice != null) colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        if (colStock != null) colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        if (ProductTable != null) ProductTable.setItems(cartList);
 
-        ToggleGroup paymentGroup = new ToggleGroup();
-        COD.setToggleGroup(paymentGroup);
-        OnlPay.setToggleGroup(paymentGroup);
-        COD.setSelected(true);
+        if (COD != null && OnlPay != null) {
+            ToggleGroup paymentGroup = new ToggleGroup();
+            COD.setToggleGroup(paymentGroup);
+            OnlPay.setToggleGroup(paymentGroup);
+            COD.setSelected(true);
+        }
 
-        loadProductShowcase();
+        if (ProductPane != null) loadProductShowcase();
 
-        Clear.setOnAction(e -> {
-            cartList.clear();
-            updateTotal();
-        });
-
-        Remove.setOnAction(e -> {
-            ProductTableData selected = ProductTable.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                cartList.remove(selected);
+        if (Clear != null) {
+            Clear.setOnAction(e -> {
+                cartList.clear();
                 updateTotal();
-            }
-        });
+            });
+        }
+        if (Remove != null && ProductTable != null) {
+            Remove.setOnAction(e -> {
+                ProductTableData selected = ProductTable.getSelectionModel().getSelectedItem();
+                if (selected != null) {
+                    cartList.remove(selected);
+                    updateTotal();
+                }
+            });
+        }
     }
 
-
-
     public void loadProductShowcase() {
+        // defensive: if ProductPane is null, don't proceed
+        if (ProductPane == null) return;
+
         MongoDatabase db = MongoConnection.getDatabase();
         MongoCollection<Document> collection = db.getCollection("products");
 
@@ -95,7 +110,8 @@ public class CustomerController implements Initializable {
                 Document doc = cursor.next();
 
                 String name = doc.getString("name");
-                double price = doc.getDouble("price");
+                Double price = doc.getDouble("price");
+                if (price == null) price = 0.0;
                 int stock = doc.getInteger("stock", 0);
                 Binary imgBinary = doc.get("image", Binary.class);
                 byte[] imageBytes = (imgBinary != null) ? imgBinary.getData() : null;
@@ -115,11 +131,10 @@ public class CustomerController implements Initializable {
         }
     }
 
-
     private AnchorPane createProductCard(String name, Double price, byte[] imageBytes) {
         MongoDatabase db = MongoConnection.getDatabase();
         MongoCollection<Document> collection = db.getCollection("products");
-        Document productDoc = collection.find(com.mongodb.client.model.Filters.eq("name", name)).first();
+        Document productDoc = collection.find(eq("name", name)).first();
         int availableStock = (productDoc != null) ? productDoc.getInteger("stock", 0) : 0;
 
         AnchorPane card = new AnchorPane();
@@ -163,11 +178,10 @@ public class CustomerController implements Initializable {
         return card;
     }
 
-
     private void addToCart(String name, double price, int quantity, byte[] imageBytes) {
         MongoDatabase db = MongoConnection.getDatabase();
         MongoCollection<Document> collection = db.getCollection("products");
-        Document productDoc = collection.find(com.mongodb.client.model.Filters.eq("name", name)).first();
+        Document productDoc = collection.find(eq("name", name)).first();
 
         int availableStock = (productDoc != null) ? productDoc.getInteger("stock", 0) : 0;
 
@@ -194,17 +208,18 @@ public class CustomerController implements Initializable {
             cartList.add(new ProductTableData(name, price, quantity, imageBytes));
         }
 
-        ProductTable.refresh();
+        if (ProductTable != null) ProductTable.refresh();
         updateTotal();
     }
-
 
     private void updateTotal() {
         double total = 0;
         for (ProductTableData item : cartList) {
             total += item.getPrice() * item.getStock();
         }
-        Total.setText(String.format("PHP %.2f", total));
+        if (Total != null) {
+            Total.setText(String.format("PHP %.2f", total));
+        }
     }
 
     public void handleCheckout(ActionEvent event) {
@@ -220,7 +235,7 @@ public class CustomerController implements Initializable {
             Document productDoc = collection.find(eq("name", item.getName())).first();
             if (productDoc != null) {
                 int currentStock = productDoc.getInteger("stock", 0);
-                int newStock = Math.max(currentStock - item.getStock(), 0); // prevent negative
+                int newStock = Math.max(currentStock - item.getStock(), 0);
                 collection.updateOne(eq("name", item.getName()),
                         new Document("$set", new Document("stock", newStock)));
             }
@@ -231,9 +246,8 @@ public class CustomerController implements Initializable {
         cartList.clear();
         updateTotal();
 
-        loadProductShowcase();
+        if (ProductPane != null) loadProductShowcase();
     }
-
 
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
@@ -255,7 +269,7 @@ public class CustomerController implements Initializable {
 
             writer.write("======== PRINTSONALIZED RECEIPT ========\n");
             writer.write("Date: " + new Date() + "\n");
-            writer.write("Payment Method: " + (COD.isSelected() ? "Cash on Delivery" : "Online Payment") + "\n");
+            writer.write("Payment Method: " + (COD != null && COD.isSelected() ? "Cash on Delivery" : "Online Payment") + "\n");
             writer.write("----------------------------------------\n");
             writer.write(String.format("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Subtotal"));
 
@@ -287,14 +301,48 @@ public class CustomerController implements Initializable {
 
     public void handleLogout(ActionEvent event) {
         try {
-            Stage currentStage = (Stage) Logout.getScene().getWindow();
-            currentStage.close();
+            if (Logout != null) {
+                Stage currentStage = (Stage) Logout.getScene().getWindow();
+                currentStage.close();
 
-            Login loginApp = new Login();
-            Stage stage = new Stage();
-            loginApp.start(stage);
+                Login loginApp = new Login();
+                Stage stage = new Stage();
+                loginApp.start(stage);
+            }
         } catch (Exception ex) {
             showAlert(Alert.AlertType.ERROR, "Error", "Could not open login page:\n" + ex.getMessage());
+        }
+    }
+
+    public void handleContactUs(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/ContactUs.fxml"));
+            Parent root = loader.load();
+
+            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1100, 600);
+            currentStage.setTitle("Contact Us");
+            currentStage.setScene(scene);
+            currentStage.show();
+
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not open Contact Us:\n" + e.getMessage());
+        }
+    }
+
+    public void handleAboutUs(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/AboutUs.fxml"));
+            Parent root = loader.load();
+
+            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1100, 600);
+            currentStage.setTitle("About Us");
+            currentStage.setScene(scene);
+            currentStage.show();
+
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not open About Us:\n" + e.getMessage());
         }
     }
 }

@@ -36,7 +36,7 @@
                   <Font name="Montserrat SemiBold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="Contact" layoutX="14.0" layoutY="262.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="203.0" style="-fx-background-radius: 10; -fx-background-color: #fefcfb;" text="CONTACT" textFill="#16425b">
+            <Button fx:id="Contact" layoutX="14.0" layoutY="262.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="203.0" style="-fx-background-radius: 10; -fx-background-color: #fefcfb;" text="CONTACT" textFill="#16425b" onAction="#handleContactUs">
                <font>
                   <Font name="Montserrat SemiBold" size="15.0" />
                </font>
@@ -46,7 +46,7 @@
                   <Font name="Montserrat SemiBold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="AboutUs" layoutX="14.0" layoutY="317.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="203.0" style="-fx-background-radius: 10; -fx-background-color: #fefcfb;" text="ABOUT US" textFill="#16425b">
+            <Button fx:id="AboutUs" layoutX="14.0" layoutY="317.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="203.0" style="-fx-background-radius: 10; -fx-background-color: #fefcfb;" text="ABOUT US" textFill="#16425b" onAction="#handleAboutUs">
                <font>
                   <Font name="Montserrat SemiBold" size="15.0" />
                </font>
