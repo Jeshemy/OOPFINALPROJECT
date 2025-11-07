@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.tanregister.register.AdminMenuController">
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <BorderPane layoutX="-2.6666666666666665" layoutY="-4.666666666666667" prefHeight="700.0" prefWidth="1107.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="-5.0">
+                    <left>
+                        <AnchorPane fx:id="slider" layoutX="0" layoutY="0" prefHeight="560.0" prefWidth="176" style="-fx-background-color: #16425B;">
+                            <children>
+                                <Button fx:id="SignOut" layoutX="23.0" layoutY="564.0" mnemonicParsing="false" onMouseClicked="#handleSignOut" style="-fx-background-color: #16425B;" text="SIGN OUT" textFill="WHITE">
+                                    <font>
+                                        <Font name="Montserrat SemiBold" size="14.0" />
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../Img/signout.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <ImageView fitHeight="105.0" fitWidth="176.0" layoutX="9.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Img/logoH.png" />
+                                    </image>
+                                    <effect>
+                                        <Glow level="0.6" />
+                                    </effect>
+                                </ImageView>
+                                <Button fx:id="inventoryButton" layoutX="18.0" layoutY="232.0" mnemonicParsing="false" onMouseClicked="#switchInventory" prefHeight="37.0" prefWidth="149.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6;" text="INVENTORY" textAlignment="CENTER" textFill="#16425b">
+                                    <font>
+                                        <Font name="Montserrat SemiBold" size="14.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color red="0.030400000512599945" green="0.12111999839544296" blue="0.1599999964237213" opacity="0.8299999833106995" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Button>
+                                <Button fx:id="mainButton" layoutX="18.0" layoutY="292.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="145.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6;" text="MAIN MENU" textAlignment="CENTER" textFill="#16425b" onMouseClicked="#switchMenuView">
+                                    <font>
+                                        <Font name="Montserrat SemiBold" size="14.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color red="0.030400000512599945" green="0.12111999839544296" blue="0.1599999964237213" opacity="0.8299999833106995" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Button>
+                                <Button fx:id="customerButton" layoutX="18.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#switchCustomer" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 6;" text="CUSTOMERS" textAlignment="CENTER" textFill="#16425b">
+                                    <font>
+                                        <Font name="Montserrat SemiBold" size="14.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color red="0.030400000512599945" green="0.12111999839544296" blue="0.1599999964237213" opacity="0.8299999833106995" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                    </left>
+                    <center>
+                        <AnchorPane fx:id="inventoryPanel" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <AnchorPane layoutX="13.333333333333334" layoutY="27.333333333333332" prefHeight="297.0" prefWidth="902.0" style="-fx-background-color: #D9DCD6; -fx-background-radius: 8;" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="27.0">
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.5837563276290894" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                    <cursor>
+                                        <Cursor fx:constant="NONE" />
+                                    </cursor>
+                                    <children>
+                                        <TableView fx:id="productTable" layoutX="10.0" layoutY="14.0" prefHeight="277.0" prefWidth="882.0" style="-fx-background-color: #D9DCD6; -fx-background-radius: 8; -fx-border-color: #2F6690; -fx-border-radius: 3; -fx-border-width: 1.5;" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.333333333333371" AnchorPane.topAnchor="14.0">
+                                            <columns>
+                                                <TableColumn fx:id="productID" prefWidth="75.0" text="Product ID" />
+                                                <TableColumn fx:id="productName" prefWidth="95.33329772949219" text="Product Name" />
+                                                <TableColumn fx:id="productType" prefWidth="95.33329772949219" text="Type" />
+                                                <TableColumn fx:id="ProductStock" prefWidth="95.33329772949219" text="Stock" />
+                                                <TableColumn fx:id="ProductPrice" prefWidth="95.33329772949219" text="Price" />
+                                                <TableColumn fx:id="ProductStatus" prefWidth="95.33329772949219" text="Status" />
+                                                <TableColumn fx:id="ProductDate" prefWidth="95.33329772949219" text="Date" />
+                                            </columns>
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane layoutX="15.0" layoutY="352.0" prefHeight="233.0" prefWidth="899.0" style="-fx-background-color: #D9DCD6; -fx-background-radius: 8;" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="352.0">
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.5837563276290894" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                    <cursor>
+                                        <Cursor fx:constant="DEFAULT" />
+                                    </cursor>
+                                    <children>
+                                        <Label layoutX="49.0" layoutY="35.0" prefHeight="18.0" prefWidth="98.0" text="Product ID:">
+                                            <font>
+                                                <Font name="Montserrat Medium" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="IDField" layoutX="139.0" layoutY="31.0" style="-fx-background-radius: 3;">
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                        </TextField>
+                                        <Label layoutX="24.0" layoutY="78.0" prefHeight="18.0" prefWidth="193.0" text="Product Name:">
+                                            <font>
+                                                <Font name="Montserrat Medium" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="ProductNameField" layoutX="139.0" layoutY="74.0" prefHeight="25.0" prefWidth="192.0" style="-fx-background-radius: 3;">
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                        </TextField>
+                                        <Label layoutX="32.0" layoutY="121.0" prefHeight="18.0" prefWidth="193.0" text="Product Type:">
+                                            <font>
+                                                <Font name="Montserrat Medium" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <ComboBox fx:id="TypeField" layoutX="139.0" layoutY="117.0" prefHeight="25.0" prefWidth="192.0" promptText="Choose Type..." />
+                                        <Label layoutX="365.0" layoutY="35.0" prefHeight="18.0" prefWidth="193.0" text="Stock:">
+                                            <font>
+                                                <Font name="Montserrat Medium" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="StockField" layoutX="419.0" layoutY="31.0" prefHeight="25.0" prefWidth="192.0" promptText="0" style="-fx-background-radius: 3;">
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                        </TextField>
+                                        <Label layoutX="365.0" layoutY="78.0" prefHeight="18.0" prefWidth="193.0" text="Price:">
+                                            <font>
+                                                <Font name="Montserrat Medium" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="Price" layoutX="419.0" layoutY="74.0" prefHeight="25.0" prefWidth="192.0" promptText="₱ 0.0" style="-fx-background-radius: 3;">
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                        </TextField>
+                                        <Label layoutX="365.0" layoutY="121.0" prefHeight="18.0" prefWidth="193.0" text="Status:">
+                                            <font>
+                                                <Font name="Montserrat Medium" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <AnchorPane layoutX="736.0" layoutY="19.0" prefHeight="135.0" prefWidth="138.0" style="-fx-background-radius: 2; -fx-background-color: #FFFFFF;" AnchorPane.rightAnchor="25.333333333333258">
+                                            <effect>
+                                                <DropShadow />
+                                            </effect>
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                            <ImageView fx:id="productImageView" fitHeight="130.0" fitWidth="130.0" layoutX="4.0" layoutY="2.5" pickOnBounds="true" preserveRatio="true" />
+                                        </AnchorPane>
+                                        <Button fx:id="importButton" layoutX="739.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleImport" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #16425B;" text="Import" textFill="WHITE" AnchorPane.rightAnchor="28.333333333333258">
+                                            <font>
+                                                <Font name="Montserrat SemiBold" size="12.0" />
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.09179999679327011" green="0.21060000360012054" blue="0.27000001072883606" opacity="0.8299999833106995" />
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Button layoutX="49.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #16425B;" text="Add" textFill="WHITE" AnchorPane.bottomAnchor="26.333333333333286">
+                                            <font>
+                                                <Font name="Montserrat SemiBold" size="12.0" />
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.09179999679327011" green="0.21060000360012054" blue="0.27000001072883606" opacity="0.8299999833106995" />
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Button fx:id="UpdateButton" layoutX="197.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #16425B;" text="Update" textFill="WHITE" AnchorPane.bottomAnchor="26.333333333333286">
+                                            <font>
+                                                <Font name="Montserrat SemiBold" size="12.0" />
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.09179999679327011" green="0.21060000360012054" blue="0.27000001072883606" opacity="0.8299999833106995" />
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Button fx:id="ClearButton" layoutX="358.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #16425B;" text="Clear" textFill="WHITE" AnchorPane.bottomAnchor="26.333333333333286">
+                                            <font>
+                                                <Font name="Montserrat SemiBold" size="12.0" />
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.09179999679327011" green="0.21060000360012054" blue="0.27000001072883606" opacity="0.8299999833106995" />
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <Button fx:id="DeleteButton" layoutX="506.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #16425B;" text="Delete" textFill="WHITE" AnchorPane.bottomAnchor="26.333333333333286">
+                                            <font>
+                                                <Font name="Montserrat SemiBold" size="12.0" />
+                                            </font>
+                                            <effect>
+                                                <DropShadow>
+                                                    <color>
+                                                        <Color red="0.09179999679327011" green="0.21060000360012054" blue="0.27000001072883606" opacity="0.8299999833106995" />
+                                                    </color>
+                                                </DropShadow>
+                                            </effect>
+                                        </Button>
+                                        <ComboBox fx:id="StatusField" layoutX="419.0" layoutY="117.0" prefHeight="25.0" prefWidth="192.0" promptText="Choose Type..." />
+                                    </children>
+                                </AnchorPane>
+                                <Separator layoutX="15.0" layoutY="335.0" prefHeight="0.0" prefWidth="898.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="17.66666666666663" AnchorPane.topAnchor="335.0" />
+                            </children>
+                        </AnchorPane>
+                    </center>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                    </cursor>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+    </children>
+    <cursor>
+        <Cursor fx:constant="DEFAULT" />
+    </cursor>
+</StackPane>

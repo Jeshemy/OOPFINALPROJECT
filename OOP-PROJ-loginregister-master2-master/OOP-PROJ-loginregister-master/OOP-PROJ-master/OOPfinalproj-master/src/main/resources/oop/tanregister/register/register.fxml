@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="500.0"
+            prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="oop.tanregister.register.RegisterController">
+
+    <children>
+        <AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #16425B;">
+            <children>
+                <ImageView fitHeight="500.0" fitWidth="845.0" opacity="0.25" pickOnBounds="true">
+                    <image>
+                        <Image url="@../../imgs/PaperTexture.png" />
+                    </image>
+                </ImageView>
+
+                <Label layoutX="217.0" layoutY="146.0" prefHeight="25.0" prefWidth="91.0" text="FIRST NAME" textFill="#d9dcd6">
+                    <font>
+                        <Font name="Montserrat Black" size="13.0" />
+                    </font>
+                </Label>
+
+                <TextField fx:id="firstNameField" layoutX="217.0" layoutY="173.0" prefHeight="25.0" prefWidth="173.0" />
+
+                <Label layoutX="414.0" layoutY="144.0" prefHeight="29.0" prefWidth="91.0" text="LAST NAME" textFill="#d9dcd6">
+                    <font>
+                        <Font name="Montserrat Black" size="13.0" />
+                    </font>
+                </Label>
+
+                <TextField fx:id="lastNameField" layoutX="414.0" layoutY="173.0" prefHeight="25.0" prefWidth="173.0" />
+
+                <Label layoutX="217.0" layoutY="196.0" prefHeight="29.0" prefWidth="91.0" text="EMAIL" textFill="#d9dcd6">
+                    <font>
+                        <Font name="Montserrat Black" size="13.0" />
+                    </font>
+                </Label>
+
+                <TextField fx:id="emailField" layoutX="217.0" layoutY="224.0" prefHeight="25.0" prefWidth="173.0" />
+
+                <Label layoutX="414.0" layoutY="196.0" prefHeight="29.0" prefWidth="141.0" text="PHONE NUMBER" textFill="#d9dcd6">
+                    <font>
+                        <Font name="Montserrat Black" size="13.0" />
+                    </font>
+                </Label>
+
+                <TextField fx:id="phoneNumberField" layoutX="414.0" layoutY="224.0" prefHeight="25.0" prefWidth="173.0" />
+
+                <Label layoutX="217.0" layoutY="245.0" prefHeight="29.0" prefWidth="91.0" text="ADDRESS" textFill="#d9dcd6">
+                    <font>
+                        <Font name="Montserrat Black" size="13.0" />
+                    </font>
+                </Label>
+
+                <TextField fx:id="addressField" layoutX="217.0" layoutY="275.0" prefHeight="25.0" prefWidth="372.0" />
+
+                <Label layoutX="217.0" layoutY="303.0" prefHeight="29.0" prefWidth="173.0" text="ENTER PASSWORD" textFill="#d9dcd6">
+                    <font>
+                        <Font name="Montserrat Black" size="13.0" />
+                    </font>
+                </Label>
+
+                <PasswordField fx:id="passwordField" layoutX="217.0" layoutY="332.0" prefHeight="25.0" prefWidth="372.0" />
+
+                <Label layoutX="217.0" layoutY="367.0" prefHeight="29.0" prefWidth="173.0" text="CONFIRM PASSWORD" textFill="#d9dcd6">
+                    <font>
+                        <Font name="Montserrat Black" size="13.0" />
+                    </font>
+                </Label>
+
+                <PasswordField fx:id="confirmPasswordField" layoutX="217.0" layoutY="396.0" prefHeight="25.0" prefWidth="372.0" />
+
+                <Button fx:id="saveButton" layoutX="217.0" layoutY="438.0" mnemonicParsing="false"
+                        prefHeight="25.0" prefWidth="112.0" text="SAVE" textFill="#16425b"
+                        onAction="#handleSave">
+                    <font>
+                        <Font name="Montserrat SemiBold" size="13.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="cancelButton" layoutX="347.0" layoutY="439.0" mnemonicParsing="false"
+                        prefHeight="25.0" prefWidth="112.0" text="CANCEL" textFill="#16425b"
+                        onAction="#handleCancel">
+                    <font>
+                        <Font name="Montserrat SemiBold" size="13.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="loginButton" layoutX="477.0" layoutY="438.0" mnemonicParsing="false"
+                        prefHeight="25.0" prefWidth="112.0" text="LOGIN" textFill="#16425b"
+                        onAction="#handleLoginRedirect">
+                    <font>
+                        <Font name="Montserrat SemiBold" size="13.0" />
+                    </font>
+                </Button>
+
+                <ImageView fitHeight="140.0" fitWidth="621.0" layoutX="87.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../imgs/logo2.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

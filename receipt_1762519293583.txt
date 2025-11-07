@@ -1,0 +1,13 @@
+======== PRINTSONALIZED RECEIPT ========
+Date: Fri Nov 07 20:41:33 PST 2025
+Payment Method: Online Payment
+----------------------------------------
+Product              Price      Qty        Subtotal  
+sae                  12.00      8          96.00     
+sample               89.00      1          89.00     
+TEST                 56.00      1          56.00     
+mario                14.00      1          14.00     
+----------------------------------------
+Total: PHP 255.00
+========================================
+Thank you for shopping with us!
