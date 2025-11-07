@@ -1,0 +1,10 @@
+======== PRINTSONALIZED RECEIPT ========
+Date: Fri Nov 07 21:33:12 PST 2025
+Payment Method: Cash on Delivery
+----------------------------------------
+Product              Price      Qty        Subtotal  
+test                 12.00      13         156.00    
+----------------------------------------
+Total: PHP 156.00
+========================================
+Thank you for shopping with us!

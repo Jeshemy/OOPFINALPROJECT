@@ -308,7 +308,7 @@ public class AdminMenuController implements Initializable {
 
     @FXML
     public void switchCustomer(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/Customer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/adcustomer.fxml"));
         Parent root = loader.load();
 
         CustomerController customerController = loader.getController();
@@ -341,7 +341,7 @@ public class AdminMenuController implements Initializable {
         try {
             Stage currentStage = (Stage) mainButton.getScene().getWindow();
             currentStage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/register.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/admainview.fxml"));
             Parent root = loader.load();
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new  Scene(root);

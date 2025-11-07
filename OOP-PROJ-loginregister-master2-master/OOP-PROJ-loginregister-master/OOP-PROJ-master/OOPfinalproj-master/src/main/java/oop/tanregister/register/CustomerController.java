@@ -48,6 +48,7 @@ public class CustomerController implements Initializable {
 
     @FXML private TextField Total;
 
+
     private ObservableList<ProductTableData> cartList = FXCollections.observableArrayList();
 
     @Override
@@ -56,6 +57,11 @@ public class CustomerController implements Initializable {
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         ProductTable.setItems(cartList);
+
+        ToggleGroup paymentGroup = new ToggleGroup();
+        COD.setToggleGroup(paymentGroup);
+        OnlPay.setToggleGroup(paymentGroup);
+        COD.setSelected(true);
 
         loadProductShowcase();
 
@@ -72,6 +78,8 @@ public class CustomerController implements Initializable {
             }
         });
     }
+
+
 
     public void loadProductShowcase() {
         MongoDatabase db = MongoConnection.getDatabase();
@@ -109,6 +117,11 @@ public class CustomerController implements Initializable {
 
 
     private AnchorPane createProductCard(String name, Double price, byte[] imageBytes) {
+        MongoDatabase db = MongoConnection.getDatabase();
+        MongoCollection<Document> collection = db.getCollection("products");
+        Document productDoc = collection.find(com.mongodb.client.model.Filters.eq("name", name)).first();
+        int availableStock = (productDoc != null) ? productDoc.getInteger("stock", 0) : 0;
+
         AnchorPane card = new AnchorPane();
         card.setPrefSize(200, 200);
         card.setStyle("-fx-background-color: #2f6690; -fx-background-radius: 10;");
@@ -134,7 +147,7 @@ public class CustomerController implements Initializable {
         }
 
         Spinner<Integer> spinner = new Spinner<>();
-        spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1));
+        spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, availableStock > 0 ? availableStock : 1, 1));
         spinner.setLayoutX(20);
         spinner.setLayoutY(140);
         spinner.setPrefWidth(90);
@@ -150,13 +163,27 @@ public class CustomerController implements Initializable {
         return card;
     }
 
+
     private void addToCart(String name, double price, int quantity, byte[] imageBytes) {
+        MongoDatabase db = MongoConnection.getDatabase();
+        MongoCollection<Document> collection = db.getCollection("products");
+        Document productDoc = collection.find(com.mongodb.client.model.Filters.eq("name", name)).first();
+
+        int availableStock = (productDoc != null) ? productDoc.getInteger("stock", 0) : 0;
+
         ProductTableData existing = null;
         for (ProductTableData item : cartList) {
             if (item.getName().equals(name)) {
                 existing = item;
                 break;
             }
+        }
+
+        int totalRequested = quantity + (existing != null ? existing.getStock() : 0);
+        if (totalRequested > availableStock) {
+            showAlert(Alert.AlertType.WARNING, "Insufficient Stock",
+                    "Only " + availableStock + " units of " + name + " available.");
+            return;
         }
 
         if (existing != null) {
@@ -170,6 +197,7 @@ public class CustomerController implements Initializable {
         ProductTable.refresh();
         updateTotal();
     }
+
 
     private void updateTotal() {
         double total = 0;
@@ -249,7 +277,7 @@ public class CustomerController implements Initializable {
             showAlert(Alert.AlertType.INFORMATION, "Receipt Generated",
                     "Receipt saved as:\n" + file.getAbsolutePath());
 
-            java.awt.Desktop.getDesktop().open(file); // Opens automatically
+            java.awt.Desktop.getDesktop().open(file);
 
         } catch (IOException e) {
             e.printStackTrace();
