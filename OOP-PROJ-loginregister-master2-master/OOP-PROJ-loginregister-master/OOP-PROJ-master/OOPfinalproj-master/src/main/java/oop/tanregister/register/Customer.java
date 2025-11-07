@@ -15,13 +15,13 @@ public class Customer extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Customer.class.getResource("Customer.fxml"));
             Parent root = fxmlLoader.load();
 
-            Scene scene = new Scene(root, 650, 400);  // Match dimensions to your FXML preferred size
+            Scene scene = new Scene(root, 650, 400);
             stage.setTitle("Main Menu");
             stage.setScene(scene);
             stage.show();
 
         } catch (IOException e) {
-            // You can optionally show an alert here for user-friendly error display
+            e.printStackTrace();
         }
     }
 
