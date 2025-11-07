@@ -361,13 +361,14 @@ public class AdminMenuController implements Initializable {
     }
 
     @FXML
-    private void switchMenuView(MouseEvent event) {
+    private void switchMenuView(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister.register/admainview.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/oop/tanregister/register/admainview.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 1100, 600));
+            stage.setTitle("Admin Menu");
             stage.show();
 
         } catch (IOException e) {
